@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
+import fs from "fs";
 import { fileURLToPath } from "url";
 
 import authRoutes from "./routes/auth.route.js";
@@ -30,20 +31,26 @@ app.use(
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/tasks", taskRoutes);
 
-// Serving Frontend in Production
-if (process.env.NODE_ENV === "production") {
-    // Path to the frontend dist folder
-    const frontendPath = path.join(__dirname, "..", "frontend", "dist");
+// Path to the frontend dist folder
+const frontendPath = path.join(__dirname, "..", "frontend", "dist");
 
+// Check if frontend build exists and serve it
+if (fs.existsSync(frontendPath)) {
+    console.log("📁 Serving frontend from:", frontendPath);
     app.use(express.static(frontendPath));
 
     app.get("*", (req, res) => {
+        // If it's an API route that somehow leaked here, return 404
+        if (req.path.startsWith('/api')) {
+            return res.status(404).json({ message: "API endpoint not found" });
+        }
         res.sendFile(path.resolve(frontendPath, "index.html"));
     });
 } else {
-    // Root route for development
+    // Root route if frontend is not built/found
+    console.warn("⚠️ Frontend dist folder not found at:", frontendPath);
     app.get("/", (req, res) => {
-        res.send("Task Management API is running...");
+        res.send("Task Management API is running... (Frontend build missing)");
     });
 }
 

@@ -2,7 +2,8 @@ import { create } from 'zustand';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-const API_URL = "http://localhost:5000/api/v1/tasks";
+const API_URL = import.meta.env.MODE === "development" ? "http://localhost:5000/api/v1/tasks" : "/api/v1/tasks";
+axios.defaults.withCredentials = true;
 axios.defaults.withCredentials = true;
 
 export const useTaskStore = create((set, get) => ({
