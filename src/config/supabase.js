@@ -5,4 +5,8 @@ dotenv.config()
 const supabaseUrl = process.env.SUPABASE_URL
 const supabaseKey = process.env.SUPABASE_KEY
 
-export const supabase = createClient(supabaseUrl, supabaseKey)
+if (!supabaseUrl || !supabaseKey) {
+    console.error("❌ CRITICAL ERROR: SUPABASE_URL or SUPABASE_KEY is missing from Env Variables.");
+}
+
+export const supabase = createClient(supabaseUrl || 'https://placeholder.co', supabaseKey || 'placeholder')
