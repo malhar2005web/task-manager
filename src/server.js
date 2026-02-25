@@ -39,7 +39,7 @@ if (fs.existsSync(frontendPath)) {
     console.log("📁 Serving frontend from:", frontendPath);
     app.use(express.static(frontendPath));
 
-    app.get("*", (req, res) => {
+    app.get("*all", (req, res) => {
         // If it's an API route that somehow leaked here, return 404
         if (req.path.startsWith('/api')) {
             return res.status(404).json({ message: "API endpoint not found" });
