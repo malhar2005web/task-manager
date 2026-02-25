@@ -1,0 +1,32 @@
+{
+  "name": "task-manager-backend",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:all": "concurrently \"npm run dev\" \"npm run dev:frontend\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.97.0",
+    "bcryptjs": "^3.0.3",
+    "concurrently": "^9.2.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "joi": "^18.0.2",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.18.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

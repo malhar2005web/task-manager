@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-premium-light text-premium-dark antialiased;
+  }
+}
+
+.glass {
+  @apply bg-white bg-opacity-70 backdrop-blur-md border border-white border-opacity-30;
+}
+
+.btn-premium {
+  @apply bg-premium-accent text-white px-6 py-2 rounded-full font-medium transition-all hover:bg-opacity-90 active:scale-95 shadow-lg;
+}
